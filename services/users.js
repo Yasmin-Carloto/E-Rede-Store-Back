@@ -6,10 +6,16 @@ const getUsers = async () => {
 }
 
 const createUser = async (name, email, password) => {
-    if(existingEmail(email)){
+    const userExists = usersModel.getUserByEmail(email)
+
+    if(userExists){
         if(validateEmail(email)){
             if(validatePassword(password)){
                 await usersModel.createUser(name, email, password)
+                return {
+                    name: name,
+                    email: email
+                }
             }else{
                 throw Error("This password does not follow these protocols: at leaste onde uppercase letter, at least one number and, at leaste, 8 digits.")
             }
@@ -19,17 +25,6 @@ const createUser = async (name, email, password) => {
     }else{
         throw Error("This email is already sign up.")
     }
-}
-
-const existingEmail = async (email) => {
-    const users = await getUsers()
-    let userEmailExist = false
-    for(let i = 0; i<users.lenght; i++){
-        if(users[i].email === email){
-            userEmailExist = true
-        }
-    }
-    return userEmailExist
 }
 
 const validateEmail = (email) => {
