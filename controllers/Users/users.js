@@ -1,4 +1,4 @@
-const { usersService } = require("../../services/index")
+const { usersService, authService } = require("../../services/index")
 const jwt = require("jsonwebtoken")
 
 const getUsers = async (req, res) => {
@@ -14,18 +14,16 @@ const getUsers = async (req, res) => {
     }
 }
 
-// CREATE NEW USER -> SIGN UP
 const createUser = async (req, res) => {
     const name = req.body.name
     const email = req.body.email
     const password = req.body.password
-    const secret_key = process.env.SECRET_KEY
 
     try{
         const user = await usersService.createUser(name, email, password)
         res.status(200).json({
             message: "User sign up susscesfully!",
-            token: jwt.sign(user, secret_key),
+            token: authService.createToken(user),
         })
     }catch(error){
         res.status(500).json({

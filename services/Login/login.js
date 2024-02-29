@@ -4,20 +4,21 @@ const login = async (email, password) => {
 
     if(email && password){
         const user = await usersModel.getUserByEmail(email)
+
         if(user){
+
             if (user.password === password){
+
                 return {
-                    id: user.id,
                     email: user.email,
                     name: user.name
                 }
+
             }else{
-                return {error: 'Invalid password.'}
+                throw Error("Invalid password.")
             }
         }else{
-            return {
-                error: 'Invalid user.'
-            }
+            throw Error("Invalid user.")
 
         }
     }else{

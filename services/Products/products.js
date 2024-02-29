@@ -41,7 +41,7 @@ const getUpdatedProductsById = async (orders) => {
 
                             }else{
 
-                                throw Error(`There is no enough stock for the ${products[i].name}. Try to buy again later.`)
+                                throw Error(`There is no enough stock for the ${products[i].name} in index ${products[i].id}. Try to buy again later.`)
                                 
                             }
                         }
@@ -65,6 +65,7 @@ const getUpdatedProductsById = async (orders) => {
     }
 }
 
+//Colocar em arquivo separado
 const validIntegers = (array) => {
     const isValid = array.every((element) => {
         return Number.isInteger(element)

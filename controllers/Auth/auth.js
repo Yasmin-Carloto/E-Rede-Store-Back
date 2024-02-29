@@ -1,14 +1,11 @@
+const {authService} = require("../../services/index")
 const jwt = require('jsonwebtoken')
 
-const authentication = (req, res, next) => {
-    const secret_key = process.env.SECRET_KEY
-    if (!req.headers.authorization){
-        res.status(404).json({message: 'Authentication failed'})
-    }
-    else if (jwt.verify(req.headers.authorization, secret_key)){
+const authentication = async (req, res, next) => {
+    try{
+        const token = await authService.verifyToken(req.headers.authorization)
         next()
-    }
-    else{
+    }catch(error){
         res.status(404).json({message: 'Authentication failed'})
     }
 }

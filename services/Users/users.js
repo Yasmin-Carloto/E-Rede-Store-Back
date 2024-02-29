@@ -6,7 +6,7 @@ const getUsers = async () => {
 }
 
 const createUser = async (name, email, password) => {
-    const userExists = usersModel.getUserByEmail(email)
+    const userExists = await usersModel.getUserByEmail(email)
 
     if(userExists){
         if(validateEmail(email)){
@@ -27,11 +27,13 @@ const createUser = async (name, email, password) => {
     }
 }
 
+//Colocar em arquivo separado
 const validateEmail = (email) => {
     const regex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
     return regex.test(email)
 }
 
+//Colocar em arquivo separado
 const validatePassword = (password) => {
     const regex = /^(?=.*[A-Z])(?=.*\d).{8,15}$/
     return regex.test(password)

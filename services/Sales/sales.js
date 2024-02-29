@@ -19,6 +19,7 @@ const getOrders = async () => {
     return orders
 }
 
+//Consertar primeiro e depois colocar em aquivo separado
 const getInfoThroughJWT = async (date, products, token) => {
     jwt.verify(token, process.env.SECRET_KEY, async (error, decoded) => {
         if(error){
