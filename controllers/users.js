@@ -25,7 +25,7 @@ const createUser = async (req, res) => {
         const user = await usersService.createUser(name, email, password)
         res.status(200).json({
             message: "User sign up susscesfully!",
-            token: jwt.sign(user, secret_key)
+            token: jwt.sign(user, secret_key),
         })
     }catch(error){
         res.status(500).json({

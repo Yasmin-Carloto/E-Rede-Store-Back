@@ -1,21 +1,27 @@
 const usersModel = require("../models/users")
 
 const login = async (email, password) => {
-    const user = await usersModel.getUserByEmail(email)
-    if(user){
-        if (user.password === password){
-            return {
-                id: user.id,
-                email: user.email,
-                name: user.name
+
+    if(email && password){
+        const user = await usersModel.getUserByEmail(email)
+        if(user){
+            if (user.password === password){
+                return {
+                    id: user.id,
+                    email: user.email,
+                    name: user.name
+                }
+            }else{
+                return {error: 'Invalid password.'}
             }
         }else{
-            return {error: 'Invalid password.'}
+            return {
+                error: 'Invalid user.'
+            }
+
         }
     }else{
-        return {
-            error: 'Invalid user.'
-        }
+        throw Error("Try to type email and password")
     }
 }
 

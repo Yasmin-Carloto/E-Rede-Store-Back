@@ -1,4 +1,5 @@
 const pool = require("../databases/pgConnection")
+const format = require('pg-format')
 
 const getProducts = async () => {
     const response = await pool.query('SELECT p.id, p.name, c.name AS name_category, p.description, p.price, p.stock FROM "Products" p JOIN "Category" c ON p."categoryId" = c.id;')
@@ -11,8 +12,22 @@ const getProductsByCategory = async (category) => {
     const response = await pool.query(query, values)
     return response.rows
 }
+
+const getProductsById = async (ids) => {
+    const query = format('SELECT p.id, p.name, c.name AS name_category, p.description, p.price, p.stock FROM "Products" p JOIN "Category" c ON p."categoryId" = c.id WHERE p.id IN (%L);', ids)
+    const response = await pool.query(query)
+    return response.rows
+}
+
+const updateQuantityInProduct = async (id, quantity) => {
+    const values = [quantity, id]
+    const query = 'UPDATE "Products" SET stock = $1 WHERE id = $2;'
+    await pool.query(query, values)
+}
  
 module.exports = {
     getProducts: getProducts,
-    getProductsByCategory: getProductsByCategory
+    getProductsByCategory: getProductsByCategory,
+    getProductsById: getProductsById,
+    updateQuantityInProduct: updateQuantityInProduct
 }

@@ -3,6 +3,7 @@ const productsController = require("../controllers/products")
 const router = express.Router()
 const authentication = require("../controllers/auth")
 
-router.get("/", authentication, productsController.getProducts)
-router.get("/categories", authentication, productsController.getProductsByCategory)
+router.get("/", productsController.getProducts)
+router.get("/categories", productsController.getProductsByCategory)
+
 module.exports = router

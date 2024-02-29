@@ -8,7 +8,8 @@ const getUsers = async () => {
 const createUser =  async(name, email, password) => {
     const values = [name, email, password]
     const query = 'INSERT INTO "Users" (name, email, password) VALUES ($1, $2, $3);'
-    await pool.query(query, values)
+    const response = await pool.query(query, values)
+    return response
 }
 
 const getUserByEmail = async (email) => {

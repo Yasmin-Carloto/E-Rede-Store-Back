@@ -17,7 +17,7 @@ const createUser = async (name, email, password) => {
                     email: email
                 }
             }else{
-                throw Error("This password does not follow these protocols: at leaste onde uppercase letter, at least one number and, at leaste, 8 digits.")
+                throw Error("This password does not follow these protocols: at leaste one uppercase letter, at least one number and, at leaste, 8 digits and maximum 15 digits.")
             }
         }else{
             throw Error("This is not an email.")
@@ -33,8 +33,8 @@ const validateEmail = (email) => {
 }
 
 const validatePassword = (password) => {
-    const regex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
-    return regex.test(password);
+    const regex = /^(?=.*[A-Z])(?=.*\d).{8,15}$/
+    return regex.test(password)
 }
 
 module.exports = {
