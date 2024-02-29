@@ -2,10 +2,25 @@ const salesModel = require("../models/sales")
 const usersModel = require("../models/users")
 const jwt = require("jsonwebtoken")
 
-// Fazer checagem de data já cadatrada
 const placeOrder = async (date, products, token) => {
-    await salesModel.setDate(date)
-    const getDateId = await salesModel.getDate(date)
+    const existingDate = await salesModel.getDateByValue(date)
+
+    if(existingDate){
+        await getInfoThroughJWT(existingDate.id, products, token)
+    }else{
+        await salesModel.setDate(date)
+        const getDateId = await salesModel.getDate(date)
+
+        await getInfoThroughJWT(getDateId.id, products, token)
+    }
+}
+
+const getOrders = async () => {
+    const orders = await salesModel.getSales()
+    return orders
+}
+
+const getInfoThroughJWT = async (date, products, token) => {
     jwt.verify(token, process.env.SECRET_KEY, async (error, decoded) => {
         if(error){
             throw Error("Your token is invalid!")
@@ -13,15 +28,10 @@ const placeOrder = async (date, products, token) => {
             const email = decoded.email
             const user = await usersModel.getUserByEmail(email)
             for(let product of products){
-                await salesModel.setSale(user.id, product.id, getDateId.id)
+                await salesModel.setSale(user.id, product.id, date)
             }
         }
     })
-}
-
-const getOrders = async () => {
-    const orders = await salesModel.getSales()
-    return orders
 }
 
 module.exports = {

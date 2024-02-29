@@ -14,6 +14,13 @@ const getDate = async (date) => {
     return response.rows[0]
 }
 
+const getDateByValue = async (date) => {
+    const values = [date]
+    const query = 'SELECT * FROM "Sales" WHERE date = $1;'
+    const response = await pool.query(query, values)
+    return response.rows[0]
+}
+
 const setSale = async (userId, productId, dateId) => {
     const values = [userId, productId, dateId]
     const query = 'INSERT INTO "Items_Sales" (user_id, product_id, sale_id) VALUES ($1, $2, $3);'
@@ -29,5 +36,6 @@ module.exports = {
     setDate: setDate,
     setSale: setSale,
     getDate: getDate,
-    getSales: getSales
+    getSales: getSales,
+    getDateByValue: getDateByValue
 }

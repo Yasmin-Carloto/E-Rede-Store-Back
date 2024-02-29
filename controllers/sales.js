@@ -12,7 +12,7 @@ const placeOrder = async (req, res) => {
 
         const currentDate = new Date(year, month - 1, day)
 
-        const token = req.body.token
+        const token = req.headers.authorization
 
         await salesService.placeOrder(currentDate, products, token)
         res.status(200).json({
