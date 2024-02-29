@@ -1,5 +1,4 @@
-const salesModel = require("../models/sales")
-const usersModel = require("../models/users")
+const { salesModel, usersModel } = require("../../models/index")
 const jwt = require("jsonwebtoken")
 
 const placeOrder = async (date, products, token) => {

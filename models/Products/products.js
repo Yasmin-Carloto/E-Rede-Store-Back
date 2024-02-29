@@ -1,4 +1,4 @@
-const pool = require("../databases/pgConnection")
+const pool = require("../../databases/pgConnection")
 const format = require('pg-format')
 
 const getProducts = async () => {

@@ -1,4 +1,4 @@
-const productsModel = require("../models/products")
+const { productsModel } = require("../../models/index")
 
 const getProducts = async () => {
     const products = await productsModel.getProducts()
@@ -28,17 +28,26 @@ const getUpdatedProductsById = async (orders) => {
             if(products.length === orders.length){
 
                 for(let i = 0; i<products.length; i++){
+
                     for(let order of orders) {
+
                         if(products[i].id === order.indexProduct){
+
                             if(products[i].stock >= order.productQuantity){
+
                                 const stock = products[i].stock
                                 const newStock = stock - order.productQuantity
                                 await productsModel.updateQuantityInProduct(products[i].id, newStock)
+
                             }else{
+
                                 throw Error(`There is no enough stock for the ${products[i].name}. Try to buy again later.`)
+                                
                             }
                         }
+
                     }
+
                 }
 
                 const newProducts = await productsModel.getProductsById(productsIndexes)

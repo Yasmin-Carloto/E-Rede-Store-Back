@@ -1,4 +1,4 @@
-const usersModel = require("../models/users")
+const { usersModel } = require("../../models/index")
 
 const login = async (email, password) => {
 

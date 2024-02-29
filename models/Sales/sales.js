@@ -1,5 +1,5 @@
 const format = require("pg-format")
-const pool = require("../databases/pgConnection")
+const pool = require("../../databases/pgConnection")
 
 const setDate = async (date) => {
     const values = [date]

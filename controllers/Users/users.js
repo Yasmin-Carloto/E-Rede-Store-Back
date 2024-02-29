@@ -1,4 +1,4 @@
-const usersService = require("../services/users")
+const { usersService } = require("../../services/index")
 const jwt = require("jsonwebtoken")
 
 const getUsers = async (req, res) => {

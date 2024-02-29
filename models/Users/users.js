@@ -1,4 +1,4 @@
-const pool = require("../databases/pgConnection")
+const pool = require("../../databases/pgConnection")
 
 const getUsers = async () => {
     const response = await pool.query('SELECT * from "Users";')

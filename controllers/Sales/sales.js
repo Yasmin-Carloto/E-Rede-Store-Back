@@ -1,5 +1,4 @@
-const salesService = require("../services/sales")
-const productsService = require("../services/products")
+const { salesService, productsService } = require("../../services/index")
 
 const placeOrder = async (req, res) => {
     try{
