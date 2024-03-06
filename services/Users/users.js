@@ -1,4 +1,5 @@
 const { usersModel } = require("../../models/index")
+const {validateEmail, validatePassword} = require("./validations/fieldsValidation")
 
 const getUsers = async () => {
     const users = usersModel.getUsers()
@@ -7,8 +8,7 @@ const getUsers = async () => {
 
 const createUser = async (name, email, password) => {
     const userExists = await usersModel.getUserByEmail(email)
-
-    if(userExists){
+    if(userExists === undefined){
         if(validateEmail(email)){
             if(validatePassword(password)){
                 await usersModel.createUser(name, email, password)
@@ -25,18 +25,6 @@ const createUser = async (name, email, password) => {
     }else{
         throw Error("This email is already sign up.")
     }
-}
-
-//Colocar em arquivo separado
-const validateEmail = (email) => {
-    const regex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
-    return regex.test(email)
-}
-
-//Colocar em arquivo separado
-const validatePassword = (password) => {
-    const regex = /^(?=.*[A-Z])(?=.*\d).{8,15}$/
-    return regex.test(password)
 }
 
 module.exports = {

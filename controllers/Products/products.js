@@ -6,7 +6,7 @@ const getProducts = async (req, res) => {
         res.status(200).json(products)
     }catch(error){
         res.status(500).json({
-            message: "Something wrong happend",
+            sucess: false,
             error: error.message
         })
     }
@@ -19,7 +19,7 @@ const getProductsByCategory = async (req, res) => {
         res.status(200).json(products)
     }catch(error){
         res.status(500).json({
-            message: "Something wrong happend",
+            sucess: false,
             error: error.message
         })
     }

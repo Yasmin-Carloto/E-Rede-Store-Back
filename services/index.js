@@ -1,3 +1,4 @@
+const categoriesService = require('./Categories/categories')
 const productsService = require("./Products/products")
 const salesService = require("./Sales/sales")
 const usersService = require("./Users/users")
@@ -9,5 +10,6 @@ module.exports = {
     salesService,
     usersService,
     loginService, 
-    authService
+    authService,
+    categoriesService
 }

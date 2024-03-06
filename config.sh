@@ -1,0 +1,1 @@
+export PG_PASSWD="020205" && export PG_HOST="127.0.0.1" && export PG_PORT="6662" && export PG_USERDEFAULT="daniel-dev" && export PG_DB="e_rede" && export SECRET_KEY="18021005LeAfAar"

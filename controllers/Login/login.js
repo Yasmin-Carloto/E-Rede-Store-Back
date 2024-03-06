@@ -7,20 +7,18 @@ const login = async (req, res) => {
     try{
         const user = await loginService.login(email, password)
         res.status(200).json({
-            message: "You are now logged in",
+            sucess: true,
             token: authService.createToken(user)
         })
        
 
     }catch(error){
         res.status(500).json({
-            message: "Something wrong happend",
+            sucess: false,
             error: error.message
         })
     }
 }
-
-// authService: create token com jwt.sign(user, secret_key)
 
 module.exports = {
     login: login

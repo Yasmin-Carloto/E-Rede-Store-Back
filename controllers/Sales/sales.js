@@ -1,26 +1,21 @@
-const { salesService, productsService } = require("../../services/index")
+const { salesService } = require("../../services/index")
 
 const placeOrder = async (req, res) => {
     try{
-        const products = await productsService.getUpdatedProductsById(req.body.orders)
+        const products = req.body.orders
 
-        const today = new Date()
-        const year = today.getFullYear()
-        const month = today.getMonth() + 1
-        const day = today.getDate()
-
-        const currentDate = new Date(year, month - 1, day)
+        const [currentDate, time] = (new Date()).toISOString().split('T')
 
         const token = req.headers.authorization
 
         await salesService.placeOrder(currentDate, products, token)
         res.status(200).json({
-            message: "Order placed susscesfully!"
+            sucess: true
         })
         
     }catch(error){
         res.status(500).json({
-            message: "Something wrong happend",
+            sucess: false,
             error: error.message
         })
     }
@@ -28,11 +23,12 @@ const placeOrder = async (req, res) => {
 
 const getOrders = async (req, res) => {
     try{
-        const orders = await salesService.getOrders()
+        const token = req.headers.authorization
+        const orders = await salesService.getOrders(token)
         res.status(200).json(orders)
     }catch(error){
         res.status(500).json({
-            message: "Something wrong happend",
+            sucess: false,
             error: error.message
         })
     }

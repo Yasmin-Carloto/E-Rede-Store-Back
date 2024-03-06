@@ -1,4 +1,5 @@
 const { productsModel } = require("../../models/index")
+const { validIntegers } = require("./validations/validNumbers")
 
 const getProducts = async () => {
     const products = await productsModel.getProducts()
@@ -50,7 +51,12 @@ const getUpdatedProductsById = async (orders) => {
 
                 }
 
-                const newProducts = await productsModel.getProductsById(productsIndexes)
+                let newProducts = await productsModel.getProductsById(productsIndexes)
+                newProducts = newProducts.map(product => {
+                    const amount = orders.find(order => product.id === order.indexProduct).productQuantity
+                    product.amount = amount
+                    return product
+                })
                 return newProducts
 
             }else{
@@ -63,15 +69,6 @@ const getUpdatedProductsById = async (orders) => {
     }else{
         throw Error("One of these Ids is not an Integer.")
     }
-}
-
-//Colocar em arquivo separado
-const validIntegers = (array) => {
-    const isValid = array.every((element) => {
-        return Number.isInteger(element)
-    })
-
-    return isValid
 }
 
 module.exports = {

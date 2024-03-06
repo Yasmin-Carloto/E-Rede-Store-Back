@@ -8,7 +8,7 @@ const getUsers = async (req, res) => {
     }catch(error){
         console.log(res)
         res.status(200).json({
-            message: "Something wrong happend",
+            sucess: false,
             error: error.message
         })
     }
@@ -22,12 +22,13 @@ const createUser = async (req, res) => {
     try{
         const user = await usersService.createUser(name, email, password)
         res.status(200).json({
-            message: "User sign up susscesfully!",
+            sucess: true,
             token: authService.createToken(user),
         })
     }catch(error){
+        console.log(error)
         res.status(500).json({
-            message: "Something wrong happend",
+            sucess: false,
             error: error.message
         })
     }
