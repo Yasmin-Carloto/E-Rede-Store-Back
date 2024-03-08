@@ -5,6 +5,7 @@ const getProducts = async (req, res) => {
         const products = await productsService.getProducts()
         res.status(200).json(products)
     }catch(error){
+        console.log(error);
         res.status(500).json({
             sucess: false,
             error: error.message

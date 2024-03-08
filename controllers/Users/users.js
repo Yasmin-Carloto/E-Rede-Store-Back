@@ -6,7 +6,6 @@ const getUsers = async (req, res) => {
         const users = await usersService.getUsers()
         res.status(200).json(users)
     }catch(error){
-        console.log(res)
         res.status(200).json({
             sucess: false,
             error: error.message
@@ -26,8 +25,7 @@ const createUser = async (req, res) => {
             token: authService.createToken(user),
         })
     }catch(error){
-        console.log(error)
-        res.status(500).json({
+        res.status(400).json({
             sucess: false,
             error: error.message
         })

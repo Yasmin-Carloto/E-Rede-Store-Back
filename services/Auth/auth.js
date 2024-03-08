@@ -10,7 +10,8 @@ const verifyToken = (token) => {
     if(!token){
         throw Error("Authentication failed.")
     }else if(token){
-        return jwt.verify(token, secret_key)
+        const [bearer, tokenJWT] = token.split(' ')
+        return jwt.verify(tokenJWT, secret_key)
     }else{
         throw Error("Authentication failed.")
     }

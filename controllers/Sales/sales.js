@@ -6,7 +6,7 @@ const placeOrder = async (req, res) => {
 
         const [currentDate, time] = (new Date()).toISOString().split('T')
 
-        const token = req.headers.authorization
+        const [bearer, token] = req.headers.authorization.split(" ")
 
         await salesService.placeOrder(currentDate, products, token)
         res.status(200).json({

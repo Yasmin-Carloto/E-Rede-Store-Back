@@ -11,7 +11,7 @@ const createUser = async (name, email, password) => {
     if(userExists === undefined){
         if(validateEmail(email)){
             if(validatePassword(password)){
-                await usersModel.createUser(name, email, password)
+                const user = await usersModel.createUser(name, email, password)
                 return {
                     name: name,
                     email: email

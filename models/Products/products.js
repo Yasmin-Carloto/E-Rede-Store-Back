@@ -9,7 +9,7 @@ const getProducts = async () => {
 
 const getProductsByCategory = async (category) => {
     const values = [category]
-    const query = 'SELECT p.id, p.name, c.name AS name_category, p.description, p.price, p.stock FROM "products" AS p JOIN "categories" AS c ON p."category_id" = c.id WHERE  c.name = $1;'
+    const query = 'SELECT p.id, p.name, p.image, c.name AS name_category, p.description, p.price, p.stock FROM "products" AS p JOIN "categories" AS c ON p."category_id" = c.id WHERE  c.name = $1;'
     const response = await pool.query(query, values)
     return response.rows
 }
