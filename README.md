@@ -1,4 +1,4 @@
-﻿# E-REDE STORE - FRONT-END
+﻿# E-REDE STORE - BACK-END
 
 Participei de uma residência de 3 meses promovida pelo Instituto Rede, que possuiu como Projeto de Finalização do Curso um e-commerce chamado E-REDE STORE. Todo o back-end foi desenvolvido com base nos requisitos e necessidades do front-end da aplicação.
 
